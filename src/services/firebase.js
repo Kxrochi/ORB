@@ -3,14 +3,14 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCvn7rk5j5acvoztVUcxb5vIKqySHKo764", 
-    authDomain: "recipebook-f9a16.firebaseapp.com",  
-    projectId: "recipebook-f9a16", 
-    storageBucket: "recipebook-f9a16.appspot.com", 
-    messagingSenderId: "9128141515",  
-    appId: "1:9128141515:web:913a9c45f1533f2030314e",
-    measurementId: "G-BSJ42EEHQH"
-  };
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+};
   
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
