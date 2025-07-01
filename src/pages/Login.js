@@ -75,7 +75,7 @@ const Login = () => {
           {/* Footer */}
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              By signing in, you agree to our Terms of Service and Privacy Policy
+              ...
             </p>
           </div>
         </div>
