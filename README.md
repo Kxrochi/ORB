@@ -10,8 +10,6 @@ ORB (Online Recipe Book) is a modern, full-featured web application for discover
 - Run "npm install" in the terminal
 - after a successfull install, use 'npm start' to run the website on localhost:3000
 
-- TheMealDB has a free public API and Firebase is used for database interaction, so there is no need for any environment variables.
-
 ## Table of Contents
 
 - [Project Structure](#project-structure)
