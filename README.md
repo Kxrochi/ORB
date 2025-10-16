@@ -12,6 +12,10 @@ ORB (Online Recipe Book) is a modern, full-featured web application for discover
 
 ## Environment Setup
 
+Please find the .env file for my environment variables used, in the pebble submission. Find it under "Finalization Phase" -> "Ressourcen" inside a zip folder named "env.zip"
+
+#### OR set it manually as stated below:
+
 Before running the application, you need to set up Firebase configuration by creating a `.env` file in the project root directory.
 
 ### Firebase Setup
