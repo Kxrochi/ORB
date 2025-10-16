@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
+/**
+ * CommentForm
+ *
+ * Auth-gated form for posting a comment. Validates non-empty text and disables
+ * submission while processing. Calls parent `onSubmit(comment: string)`.
+ */
 const CommentForm = ({ onSubmit }) => {
   const { user } = useAuth();
   const [comment, setComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,10 +20,11 @@ const CommentForm = ({ onSubmit }) => {
 
     try {
       setIsSubmitting(true);
+      setError('');
       await onSubmit(comment.trim());
       setComment('');
     } catch (error) {
-      // console.error('Error submitting comment:', error);
+      setError('Failed to post comment. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -44,6 +52,9 @@ const CommentForm = ({ onSubmit }) => {
           maxLength="500"
         />
       </div>
+      {error && (
+        <div className="mb-3 text-sm text-red-600 dark:text-red-400">{error}</div>
+      )}
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-500 dark:text-gray-400">
           {comment.length}/500 characters

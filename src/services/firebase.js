@@ -2,6 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+/**
+ * Firebase initialization
+ *
+ * Initializes the Firebase App, Auth, and Firestore instances using
+ * environment variables. Exports `auth` and `db` singletons for app-wide use.
+ */
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,

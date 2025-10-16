@@ -7,6 +7,12 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import LikeButton from '../components/LikeButton';
 import CommentForm from '../components/CommentForm';
 
+/**
+ * RecipeDetail
+ *
+ * Fetches and displays a full recipe, including ingredients and instructions.
+ * Includes interactive features: likes and comments with Firestore storage.
+ */
 const RecipeDetail = () => {
   const { id } = useParams();
   const { user } = useAuth();

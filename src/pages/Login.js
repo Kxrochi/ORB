@@ -3,6 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '../services/firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
+/**
+ * Login
+ *
+ * Simple Google sign-in using Firebase Auth. Shows transient error states and
+ * redirects to Home on success.
+ */
 const Login = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);

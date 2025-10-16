@@ -2,11 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getLikes, toggleLike } from '../services/firebaseStorage';
 
+/**
+ * LikeButton
+ *
+ * Displays like state and count for a recipe. Auth-only interaction toggles
+ * the like and updates Firestore; unauthenticated users see a disabled count.
+ */
 const LikeButton = ({ recipeId }) => {
   const { user } = useAuth();
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -27,11 +34,12 @@ const LikeButton = ({ recipeId }) => {
 
     try {
       setIsLoading(true);
+      setError('');
       const newIsLiked = await toggleLike(recipeId, user.uid);
       setIsLiked(newIsLiked);
       setLikeCount(prev => newIsLiked ? prev + 1 : prev - 1);
     } catch (error) {
-      // console.error('Error toggling like:', error);
+      setError(error?.message || 'Failed to update like. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -49,7 +57,8 @@ const LikeButton = ({ recipeId }) => {
   }
 
   return (
-    <button
+    <div className="flex flex-col items-end gap-1">
+      <button
       onClick={handleLike}
       disabled={isLoading}
       className={`flex items-center gap-2 p-2 rounded-full transition-all duration-200 ${
@@ -57,7 +66,7 @@ const LikeButton = ({ recipeId }) => {
           ? 'text-red-500 hover:text-red-600 bg-red-50 dark:bg-red-900/20'
           : 'text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20'
       } ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-    >
+      >
       <svg 
         className={`w-6 h-6 transition-transform duration-200 ${isLiked ? 'scale-110' : ''}`}
         fill={isLiked ? 'currentColor' : 'none'}
@@ -72,7 +81,11 @@ const LikeButton = ({ recipeId }) => {
         />
       </svg>
       <span className="text-sm font-medium">{likeCount}</span>
-    </button>
+      </button>
+      {error && (
+        <span className="text-xs text-red-500 dark:text-red-400">{error}</span>
+      )}
+    </div>
   );
 };
 

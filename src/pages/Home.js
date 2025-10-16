@@ -5,6 +5,13 @@ import { getMostEngagedRecipes } from '../services/firebaseStorage';
 import RecipeCard from '../components/RecipeCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 
+/**
+ * Home
+ *
+ * Landing page showing recommended recipes with infinite scroll.
+ * Bootstraps with most engaged ids (likes+comments) when available and
+ * backfills with random recipes. Supports search navigation.
+ */
 const Home = () => {
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);

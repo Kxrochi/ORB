@@ -10,6 +10,35 @@ ORB (Online Recipe Book) is a modern, full-featured web application for discover
 - Run "npm install" in the terminal
 - after a successfull install, use 'npm start' to run the website on localhost:3000
 
+## Environment Setup
+
+Before running the application, you need to set up Firebase configuration by creating a `.env` file in the project root directory.
+
+### Firebase Setup
+
+1. **Go to the Firebase Console**: https://console.firebase.google.com/
+2. **Create a new project** (or select an existing one)
+3. **Add a web app** to your project
+4. **Enable Authentication and Firestore** in your Firebase project settings
+5. **Copy the configuration values** from the Firebase config object
+
+### Create .env File
+
+Create a `.env` file in the project root directory with the following content:
+
+```env
+# Firebase Configuration
+REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=your_firebase_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_project_id.firebasestorage.app
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+REACT_APP_FIREBASE_APP_ID=your_firebase_app_id
+REACT_APP_FIREBASE_MEASUREMENT_ID=your_measurement_id
+```
+
+Replace the placeholder values with your actual Firebase configuration values.
+
 ## Table of Contents
 
 - [Project Structure](#project-structure)
@@ -20,6 +49,7 @@ ORB (Online Recipe Book) is a modern, full-featured web application for discover
   - [Pages](#pages)
   - [Components](#components)
   - [Services](#services)
+- [Testing](#testing)
 - [Design Decisions & Rationale](#design-decisions--rationale)
 
 
@@ -94,6 +124,50 @@ ORB (Online Recipe Book) is a modern, full-featured web application for discover
 - **`mealdbApi.js`**: Handles all interactions with TheMealDB API, including fetching random recipes, searching, and filtering by category/cuisine.
 
 ---
+
+## Testing
+
+This project can be tested with Jest and React Testing Library. Suggested structure:
+
+```
+src/
+  __tests__/
+    components/
+    pages/
+    services/
+```
+
+- Unit tests: components (`RecipeCard`, `LikeButton`, `CommentForm`), hooks via pages, and service helpers (`mealdbApi`, `firebaseStorage`).
+- Integration tests: page flows (`Search` filters and URL params, `Planner` add/remove/change with mocked Firestore, `RecipeDetail` like/comment interactions).
+- Mocking guidance:
+  - Mock TheMealDB HTTP calls via `jest.mock('axios')` or MSW.
+  - Mock Firebase (`firebase/auth`, `firebase/firestore`) using manual Jest mocks and in-memory stores.
+
+Example test commands to add:
+
+```
+npm i -D jest @testing-library/react @testing-library/jest-dom jest-environment-jsdom msw
+```
+
+Add to `package.json`:
+
+```
+"scripts": {
+  "test": "jest"
+}
+```
+
+Basic sample test (RecipeCard renders):
+
+```js
+import { render, screen } from '@testing-library/react';
+import RecipeCard from '../components/RecipeCard';
+
+test('renders recipe name', () => {
+  render(<RecipeCard recipe={{ idMeal: '1', strMeal: 'Arrabiata', strMealThumb: '', strInstructions: '' }} />);
+  expect(screen.getByText('Arrabiata')).toBeInTheDocument();
+});
+```
 
 ## Design Decisions & Rationale
 

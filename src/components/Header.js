@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 
+/**
+ * Header
+ *
+ * Top navigation bar with logo, primary routes, theme toggle, and user menu.
+ * Shows `Planner` link only when authenticated.
+ */
 const Header = () => {
   const { user } = useAuth();
   const { isDarkMode, toggleTheme } = useTheme();

@@ -5,6 +5,12 @@ import { getPlanner, updatePlanner } from '../services/firebaseStorage';
 import { searchRecipesByNameAndIngredients } from '../services/mealdbApi';
 import LoadingSpinner from '../components/LoadingSpinner';
 
+/**
+ * Planner
+ *
+ * Auth-protected weekly meal planner. Users can add, change, and remove
+ * recipes per day/meal, persisted to Firestore. Includes modal search.
+ */
 const Planner = () => {
   const { user } = useAuth();
   const navigate = useNavigate();

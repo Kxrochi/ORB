@@ -14,7 +14,15 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 
+/**
+ * Firestore data helpers
+ *
+ * Encapsulates reads/writes for likes, comments, user preferences, and
+ * planner data. Functions return safe defaults when possible and throw
+ * on user-triggered write failures so UI can display errors.
+ */
 // Likes functionality
+/** Returns the list of user ids who liked the recipe (creates doc if missing). */
 export const getLikes = async (recipeId) => {
   try {
     const recipeDoc = doc(db, 'recipes', recipeId);
@@ -34,6 +42,7 @@ export const getLikes = async (recipeId) => {
   }
 };
 
+/** Toggles like for a user on a recipe. Returns new like state (boolean). */
 export const toggleLike = async (recipeId, userId) => {
   try {
     const recipeDoc = doc(db, 'recipes', recipeId);
@@ -60,11 +69,13 @@ export const toggleLike = async (recipeId, userId) => {
       return true;
     }
   } catch (error) {
-    // console.error('Error toggling like:', error);
-    throw new Error('Failed to update like. Please check your internet connection and try again.');
+    // Surface underlying Firebase error for better debugging in UI
+    const message = (error && (error.message || error.code)) || 'Failed to update like.';
+    throw new Error(message);
   }
 };
 
+/** Returns ids of recipes liked by the given user. */
 export const getUserLikes = async (userId) => {
   try {
     const recipesRef = collection(db, 'recipes');
@@ -80,6 +91,7 @@ export const getUserLikes = async (userId) => {
 };
 
 // Comments functionality
+/** Returns comments for a recipe, newest first. */
 export const getComments = async (recipeId) => {
   try {
     const commentsRef = collection(db, 'comments');
@@ -109,6 +121,7 @@ export const getComments = async (recipeId) => {
   }
 };
 
+/** Adds a comment and returns the created comment with a local timestamp. */
 export const addComment = async (recipeId, commentData) => {
   try {
     const commentsRef = collection(db, 'comments');
@@ -135,6 +148,7 @@ export const addComment = async (recipeId, commentData) => {
 };
 
 // User preferences functionality
+/** Returns user preferences object, creating defaults if none exist. */
 export const getUserPreferences = async (userId) => {
   try {
     const userDoc = doc(db, 'users', userId);
@@ -159,6 +173,7 @@ export const getUserPreferences = async (userId) => {
   }
 };
 
+/** Updates user preferences (merge). */
 export const updateUserPreferences = async (userId, preferences) => {
   try {
     const userDoc = doc(db, 'users', userId);
@@ -170,6 +185,7 @@ export const updateUserPreferences = async (userId, preferences) => {
 };
 
 // Get most liked recipes
+/** Returns top recipe ids sorted by like count (desc), up to `limit`. */
 export const getMostLikedRecipes = async (limit = 12) => {
   try {
     const recipesRef = collection(db, 'recipes');
@@ -195,6 +211,7 @@ export const getMostLikedRecipes = async (limit = 12) => {
 };
 
 // Get most engaged recipes (likes + comments)
+/** Returns top recipe ids by engagement score (likes + comments). */
 export const getMostEngagedRecipes = async (limit = 12) => {
   try {
     const recipesRef = collection(db, 'recipes');
@@ -237,6 +254,7 @@ export const getMostEngagedRecipes = async (limit = 12) => {
 };
 
 // Planner functionality
+/** Returns the planner object for a user (empty object if none). */
 export const getPlanner = async (userId) => {
   try {
     const userDocRef = doc(db, 'users', userId);
@@ -252,6 +270,7 @@ export const getPlanner = async (userId) => {
   }
 };
 
+/** Updates the planner for a user (merge). */
 export const updatePlanner = async (userId, plannerData) => {
   try {
     const userDocRef = doc(db, 'users', userId);

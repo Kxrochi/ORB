@@ -11,6 +11,12 @@ import {
 import RecipeCard from '../components/RecipeCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 
+/**
+ * Search
+ *
+ * Advanced search with query, category, and cuisine filters. Synchronizes
+ * state with URL params and labels results by match source for UI badges.
+ */
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('q') || '');

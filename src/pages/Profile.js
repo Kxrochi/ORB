@@ -6,6 +6,12 @@ import { getRecipeById } from '../services/mealdbApi';
 import RecipeCard from '../components/RecipeCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 
+/**
+ * Profile
+ *
+ * Auth-protected profile page that summarizes the user and lists liked
+ * recipes by fetching full details for each liked id.
+ */
 const Profile = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();

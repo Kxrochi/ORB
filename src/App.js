@@ -10,6 +10,13 @@ import Planner from './pages/Planner';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 
+/**
+ * App
+ *
+ * Root application component.
+ * - Wraps routes with `ThemeProvider` and `AuthProvider`
+ * - Sets up client-side routing for main pages
+ */
 function App() {
   return (
     <ThemeProvider>

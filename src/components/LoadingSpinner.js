@@ -1,5 +1,6 @@
 import React from 'react';
 
+/** Minimal loading spinner for async UI states. */
 const LoadingSpinner = () => {
   return (
     <div className="flex justify-center items-center h-full p-8">

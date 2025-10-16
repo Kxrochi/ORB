@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+/**
+ * TheMealDB API client and helpers
+ *
+ * Provides convenience functions for fetching recipe data and search results
+ * from TheMealDB. Functions return safe defaults on errors to keep UI stable.
+ */
+
 const API_URL = 'https://www.themealdb.com/api/json/v1/1/';
 
 const api = axios.create({
@@ -16,6 +23,11 @@ export const getRandomRecipes = async () => {
   }
 };
 
+/**
+ * Returns multiple diverse random recipes using a mix of simple strategies.
+ * Ensures uniqueness and fills missing fields by fetching full details.
+ * @param {number} count
+ */
 export const getMultipleRandomRecipes = async (count = 12) => {
   try {
     // Use only 2-3 simple strategies for random recipes
@@ -94,6 +106,11 @@ export const getMultipleRandomRecipes = async (count = 12) => {
   }
 };
 
+/**
+ * Paginates additional random recipes while excluding already loaded ids.
+ * @param {number} count
+ * @param {string[]} excludeIds
+ */
 export const getMoreRandomRecipes = async (count = 6, excludeIds = []) => {
   try {
     // Use only 2-3 simple strategies for loading more recipes
@@ -173,6 +190,10 @@ export const getMoreRandomRecipes = async (count = 6, excludeIds = []) => {
   }
 };
 
+/**
+ * Searches recipes by name and ingredient, merges results with match labels.
+ * @param {string} query
+ */
 export const searchRecipesByNameAndIngredients = async (query) => {
   try {
     // First, search by recipe name
@@ -214,6 +235,10 @@ export const searchRecipesByNameAndIngredients = async (query) => {
   }
 };
 
+/**
+ * Raw name search.
+ * @param {string} query
+ */
 export const searchRecipesByName = async (query) => {
   try {
     const response = await api.get(`search.php?s=${query}`);
@@ -223,6 +248,10 @@ export const searchRecipesByName = async (query) => {
   }
 };
 
+/**
+ * Raw ingredient search (returns shallow results, id-only info).
+ * @param {string} ingredient
+ */
 export const searchRecipesByIngredient = async (ingredient) => {
   try {
     const response = await api.get(`filter.php?i=${ingredient}`);
@@ -232,6 +261,10 @@ export const searchRecipesByIngredient = async (ingredient) => {
   }
 };
 
+/**
+ * Fetches a single recipe by id (or null on failure).
+ * @param {string} id
+ */
 export const getRecipeById = async (id) => {
   try {
     const response = await api.get(`lookup.php?i=${id}`);
@@ -241,6 +274,7 @@ export const getRecipeById = async (id) => {
   }
 };
 
+/** Returns all categories or empty array on failure. */
 export const getAllCategories = async () => {
   try {
     const response = await api.get('categories.php');
@@ -250,6 +284,7 @@ export const getAllCategories = async () => {
   }
 };
 
+/** Returns recipes by category or empty array on failure. */
 export const getRecipesByCategory = async (category) => {
   try {
     const response = await api.get(`filter.php?c=${category}`);
@@ -259,6 +294,7 @@ export const getRecipesByCategory = async (category) => {
   }
 };
 
+/** Returns all areas (cuisines) or empty array on failure. */
 export const getAllAreas = async () => {
   try {
     const response = await api.get('list.php?a=list');
@@ -268,6 +304,7 @@ export const getAllAreas = async () => {
   }
 };
 
+/** Returns recipes by area or empty array on failure. */
 export const getRecipesByArea = async (area) => {
   try {
     const response = await api.get(`filter.php?a=${area}`);

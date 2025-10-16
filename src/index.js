@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
+/**
+ * Entry point
+ *
+ * Creates the React root and renders the application. Also wires up the
+ * decorative "gooey cursor" effect if the required library is present.
+ */
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

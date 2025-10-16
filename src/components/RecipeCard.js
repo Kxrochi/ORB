@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+/**
+ * RecipeCard
+ *
+ * Displays a recipe preview tile. On hover, shows an informative overlay with
+ * approximate cooking time, difficulty, and key ingredients.
+ */
 const RecipeCard = ({ recipe, searchMatch }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
