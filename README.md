@@ -10,6 +10,35 @@ ORB (Online Recipe Book) is a modern, full-featured web application for discover
 - Run "npm install" in the terminal
 - after a successfull install, use 'npm start' to run the website on localhost:3000
 
+## Environment Setup
+
+Before running the application, you need to set up Firebase configuration by creating a `.env` file in the project root directory.
+
+### Firebase Setup
+
+1. **Go to the Firebase Console**: https://console.firebase.google.com/
+2. **Create a new project** (or select an existing one)
+3. **Add a web app** to your project
+4. **Enable Authentication and Firestore** in your Firebase project settings
+5. **Copy the configuration values** from the Firebase config object
+
+### Create .env File
+
+Create a `.env` file in the project root directory with the following content:
+
+```env
+# Firebase Configuration
+REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=your_firebase_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_project_id.firebasestorage.app
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+REACT_APP_FIREBASE_APP_ID=your_firebase_app_id
+REACT_APP_FIREBASE_MEASUREMENT_ID=your_measurement_id
+```
+
+Replace the placeholder values with your actual Firebase configuration values.
+
 ## Table of Contents
 
 - [Project Structure](#project-structure)
