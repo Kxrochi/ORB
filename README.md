@@ -125,50 +125,6 @@ Replace the placeholder values with your actual Firebase configuration values.
 
 ---
 
-## Testing
-
-This project can be tested with Jest and React Testing Library. Suggested structure:
-
-```
-src/
-  __tests__/
-    components/
-    pages/
-    services/
-```
-
-- Unit tests: components (`RecipeCard`, `LikeButton`, `CommentForm`), hooks via pages, and service helpers (`mealdbApi`, `firebaseStorage`).
-- Integration tests: page flows (`Search` filters and URL params, `Planner` add/remove/change with mocked Firestore, `RecipeDetail` like/comment interactions).
-- Mocking guidance:
-  - Mock TheMealDB HTTP calls via `jest.mock('axios')` or MSW.
-  - Mock Firebase (`firebase/auth`, `firebase/firestore`) using manual Jest mocks and in-memory stores.
-
-Example test commands to add:
-
-```
-npm i -D jest @testing-library/react @testing-library/jest-dom jest-environment-jsdom msw
-```
-
-Add to `package.json`:
-
-```
-"scripts": {
-  "test": "jest"
-}
-```
-
-Basic sample test (RecipeCard renders):
-
-```js
-import { render, screen } from '@testing-library/react';
-import RecipeCard from '../components/RecipeCard';
-
-test('renders recipe name', () => {
-  render(<RecipeCard recipe={{ idMeal: '1', strMeal: 'Arrabiata', strMealThumb: '', strInstructions: '' }} />);
-  expect(screen.getByText('Arrabiata')).toBeInTheDocument();
-});
-```
-
 ## Design Decisions & Rationale
 
 ### Why Firebase?
